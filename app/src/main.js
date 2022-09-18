@@ -1,7 +1,7 @@
 import { createApp, defineAsyncComponent } from 'vue'
 import router from './router.js'
 import App from './App.vue'
-
+import store from './store/index.js';
 import BaseCard from './components/BaseComponents/BaseCard.vue';
 import BaseButton from './components/BaseComponents/BaseButton.vue';
 
@@ -13,7 +13,8 @@ const BaseSpinner = defineAsyncComponent(() => import('./components/BaseComponen
 // Vue app initialization
 const app = createApp(App);
 
-// Inject Vue router into our Vue App
+// Inject Vue router and store into our Vue App
+app.use(store);
 app.use(router);
 
 // Add the below as Global app wide components

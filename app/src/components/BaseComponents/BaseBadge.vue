@@ -31,7 +31,7 @@ export default {
   background-color: #71008d;
   color: white;
 }
-.diner {
+.dinner {
   background-color: #8d006e;
   color: white;
 }
