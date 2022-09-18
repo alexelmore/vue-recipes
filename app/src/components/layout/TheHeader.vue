@@ -1,8 +1,15 @@
 <template>
   <header>
-    <h1>
-      <BaseButton link="true" to="/recipes">Recipes</BaseButton>
-    </h1>
+    <nav>
+      <h1>
+        <BaseButton link="true" to="/recipes">My Recipes</BaseButton>
+      </h1>
+      <ul>
+        <li>
+          <BaseButton link="true" to="/addRecipe">Add A Recipe</BaseButton>
+        </li>
+      </ul>
+    </nav>
   </header>
 </template>
 
