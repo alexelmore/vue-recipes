@@ -24,4 +24,14 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li {
+  margin: 0.2rem 0;
+  padding: 0;
+}
 </style>

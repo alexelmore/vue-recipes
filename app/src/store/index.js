@@ -11,7 +11,7 @@ const store = createStore({
                         { name: 'dough', amount: 'One tube' },
                         { name: 'pasta sauce', amount: 'one can' }
                     ],
-                    directions: ['step one:', 'step two', 'step three'],
+                    directions: ['step one...', 'step two...', 'step three...'],
                     type: ['lunch', 'dinner'],
                     cook_time: '30 minutes',
                     id: 'pizza'
@@ -23,7 +23,7 @@ const store = createStore({
                         { name: 'tortilla', amount: '2 wraps' },
                         { name: 'chipolte sauce', amount: 'one can' }
                     ],
-                    directions: ['step one:', 'step two', 'step three'],
+                    directions: ['step one...', 'step two...', 'step three...'],
                     type: ['lunch', 'dinner'],
                     cook_time: '10 minutes',
                     id: 'quesadilla'
