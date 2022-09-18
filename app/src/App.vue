@@ -22,7 +22,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 h1,
 h2,
@@ -33,5 +32,8 @@ ul,
 li {
   margin: 0.2rem 0;
   padding: 0;
+}
+body {
+  margin: 0;
 }
 </style>
