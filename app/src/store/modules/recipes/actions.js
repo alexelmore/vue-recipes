@@ -17,11 +17,19 @@ export default {
         try {
             if (response.ok && response.status === 200) {
                 const recipes = []
+                console.log(data.results)
                 for (const key in data.results) {
-                    console.log(key)
                     const recipe = {
                         id: data.results[key].id,
-                        name: data.results[key].name
+                        name: data.results[key].name,
+                        description: data.results[key].description,
+                        total_time_minutes: data.results[key].total_time_minutes,
+                        num_servings: data.results[key].num_servings,
+                        yields: data.results[key].yields,
+                        instructions: data.results[key].instructions,
+                        tags: data.results[key].tags,
+                        image: data.results[key].thumbnail_url,
+                        canonical_id: data.results[key].canonical_id
                     }
                     recipes.push(recipe)
                 }

@@ -3,7 +3,10 @@
     <SideBar />
     <ul id="example-2">
       <li v-for="item in recipes" v-bind:key="item.name">
-        <BaseCard>{{ item.name }} </BaseCard>
+        <BaseCard
+          >{{ item.name }} -
+          <img class="recipe-list-image" :src="item.image" :alt="item.name" />
+        </BaseCard>
       </li>
     </ul>
   </div>
@@ -39,6 +42,9 @@ ul {
 }
 .recipe-items {
   width: 60%;
+}
+.recipe-list-image {
+  height: 20rem;
 }
 .controls {
   display: flex;
