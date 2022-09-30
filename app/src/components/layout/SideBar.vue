@@ -12,16 +12,31 @@
         <h2 class="filter-title">Meal Type</h2>
         <span class="filter-option">
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Breakfast</label>
+            <input
+              type="checkbox"
+              id="vehicle31"
+              name="vehicle31"
+              value="Bike"
+            />
+            <label for="vehicle31"> Breakfast</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Lunch</label>
+            <input
+              type="checkbox"
+              id="vehicle41"
+              name="vehicle41"
+              value="Bike"
+            />
+            <label for="vehicle41"> Lunch</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Dinner</label>
+            <input
+              type="checkbox"
+              id="vehicle21"
+              name="vehicle21"
+              value="Bike"
+            />
+            <label for="vehicle21"> Dinner</label>
           </div>
         </span>
       </BaseCard>

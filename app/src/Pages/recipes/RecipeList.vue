@@ -1,23 +1,11 @@
 <template>
   <div class="recipe-list">
     <SideBar />
-    <div class="recipe-items">
-      <BaseCard v-for="recipe in recipes" :key="recipe.id">
-        <h2>
-          <u>{{ recipe.name }}</u>
-        </h2>
-        <h4>Time Make: {{ recipe.cook_time }}</h4>
-
-        <h4>Ingredients:</h4>
-        <ul v-for="ingredient in recipe.ingredients" :key="ingredient">
-          <li>{{ ingredient.name }}: {{ ingredient.amount }}</li>
-        </ul>
-        <h4>Directions:</h4>
-        <p v-for="direction in recipe.directions" :key="direction">
-          {{ direction }}
-        </p>
-      </BaseCard>
-    </div>
+    <ul id="example-2">
+      <li v-for="item in recipes" v-bind:key="item.name">
+        <BaseCard>{{ item.name }} </BaseCard>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -31,7 +19,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      recipes: "getRecipes",
+      recipes: "recipes/getRecipes",
     }),
   },
 };
@@ -47,7 +35,7 @@ ul {
   margin: auto;
   min-width: 800px;
   max-width: 1000px;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .recipe-items {
   width: 60%;
