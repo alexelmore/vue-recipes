@@ -18,7 +18,7 @@
               name="breakfast"
               value="breakfast"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.filteredRecipes)"
+              @change="$emit('filteredRecipes', this.searchTags)"
             />
             <label for="breakfast"> Breakfast</label>
           </div>
@@ -29,7 +29,7 @@
               name="brunch"
               value="brunch"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.filteredRecipes)"
+              @change="$emit('filteredRecipes', this.searchTags)"
             />
             <label for="brunch"> Brunch</label>
           </div>
@@ -40,7 +40,7 @@
               name="lunch"
               value="Lunch"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.filteredRecipes)"
+              @change="$emit('filteredRecipes', this.searchTags)"
             />
             <label for="lunch"> Lunch</label>
           </div>
@@ -51,47 +51,108 @@
               name="dinner"
               value="dinner"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.filteredRecipes)"
+              @change="$emit('filteredRecipes', this.searchTags)"
             />
             <label for="dinner"> Dinner</label>
           </div>
         </span>
       </BaseCard>
       <BaseCard>
-        <h2>Protien Type</h2>
+        <h2>Dietary Restrictions</h2>
         <span class="filter-option">
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Non Meat</label>
+            <input
+              type="checkbox"
+              id="vegetarian"
+              name="vegetarian"
+              value="vegetarian"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="vegetarian"> Vegetarian</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Red Meat</label>
+            <input
+              type="checkbox"
+              id="vegan"
+              name="vegan"
+              value="vegan"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="vegan"> Vegan</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> Poultry</label>
+            <input
+              type="checkbox"
+              id="dairy_free"
+              name="dairy_free"
+              value="dairy_free"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="dairy_free"> Dairy-Free</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1">Other</label>
+            <input
+              type="checkbox"
+              id="gluten_free"
+              name="gluten_free"
+              value="gluten_free"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="gluten_free"> Gluten-Free</label>
           </div>
         </span>
       </BaseCard>
       <BaseCard>
-        <h2>Cook Time</h2>
+        <h2>Diffculty</h2>
         <span class="filter-option">
           <div>
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-            <label for="vehicle1"> 20 Minutes Or Less</label>
+            <input
+              type="checkbox"
+              id="under_15_minutes"
+              name="under_15_minutes"
+              value="under_15_minutes"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="under_15_minutes"> Under 15 Minutes</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
-            <label for="vehicle2"> 30 Minutes Or Less</label>
+            <input
+              type="checkbox"
+              id="under_30_minutes"
+              name="under_30_minutes"
+              value="under_30_minutes"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="under_30_minutes"> Under 30 Minutes</label>
           </div>
           <div>
-            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" />
-            <label for="vehicle3"> More Than 30 Minutes</label>
+            <input
+              type="checkbox"
+              id="under_45_minutes"
+              name="under_45_minutes"
+              value="under_45_minutes"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="under_45_minutes"> Under 45 Minutes</label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="under_1_hour"
+              name="under_1_hour"
+              value="under_1_hour"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.searchTags)"
+            />
+            <label for="under_1_hour"> Under An Hour</label>
           </div>
         </span>
       </BaseCard>
@@ -123,18 +184,6 @@ export default {
     ...mapGetters({
       recipes: "recipes/getRecipes",
     }),
-
-    filteredRecipes() {
-      const selectedRecipes = [];
-      this.recipes.forEach((recipe) => {
-        recipe.tags.forEach((tag) => {
-          if (this.searchTags.includes(tag.name)) {
-            selectedRecipes.push(recipe);
-          }
-        });
-      });
-      return selectedRecipes;
-    },
   },
   methods: {
     clearSelections() {

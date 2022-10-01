@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       selectedRecipes: [],
+      selectedTags: [],
     };
   },
   computed: {
@@ -38,7 +39,23 @@ export default {
   },
   methods: {
     updateRecipeList(array) {
-      this.selectedRecipes = [...array];
+      this.selectedTags = [...array];
+      this.selectedRecipes = [];
+
+      this.recipes.forEach((recipe) => {
+        const tagNames = [];
+
+        for (const tag in recipe.tags) {
+          tagNames.push(recipe.tags[tag].name);
+        }
+
+        const shouldAdd = this.includesAll(tagNames, this.selectedTags);
+        if (shouldAdd && this.selectedTags.length)
+          this.selectedRecipes.push(recipe);
+      });
+    },
+    includesAll(arr, values) {
+      return values.every((v) => arr.includes(v));
     },
   },
 };
