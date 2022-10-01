@@ -6,9 +6,7 @@
       </h1>
       <ul>
         <li>
-          <BaseButton @click="testFunction" link="true" to="/addRecipe"
-            >Add A Recipe</BaseButton
-          >
+          <BaseButton link="true" to="/addRecipe">Add A Recipe</BaseButton>
         </li>
       </ul>
     </nav>
@@ -16,18 +14,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "TheHeader",
-  methods: {
-    testFunction() {
-      this.fetchRecipes();
-    },
-    ...mapActions({
-      fetchRecipes: "recipes/fetchRecipes",
-    }),
-  },
 };
 </script>
 

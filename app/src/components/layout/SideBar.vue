@@ -2,7 +2,7 @@
   <div class="sidebar" :style="{ width: width + 'px' }">
     <div class="sidebar-header">
       <h2 class="sidebar-title">Filter Recipes</h2>
-      <BaseButton mode="flat" class="sidebar-cta">
+      <BaseButton @click="clearSelections" mode="flat" class="sidebar-cta">
         {{ ctaText }}
       </BaseButton>
     </div>
@@ -14,29 +14,46 @@
           <div>
             <input
               type="checkbox"
-              id="vehicle31"
-              name="vehicle31"
-              value="Bike"
+              id="breakfast"
+              name="breakfast"
+              value="breakfast"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.filteredRecipes)"
             />
-            <label for="vehicle31"> Breakfast</label>
+            <label for="breakfast"> Breakfast</label>
           </div>
           <div>
             <input
               type="checkbox"
-              id="vehicle41"
-              name="vehicle41"
-              value="Bike"
+              id="brunch"
+              name="brunch"
+              value="brunch"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.filteredRecipes)"
             />
-            <label for="vehicle41"> Lunch</label>
+            <label for="brunch"> Brunch</label>
           </div>
           <div>
             <input
               type="checkbox"
-              id="vehicle21"
-              name="vehicle21"
-              value="Bike"
+              id="lunch"
+              name="lunch"
+              value="Lunch"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.filteredRecipes)"
             />
-            <label for="vehicle21"> Dinner</label>
+            <label for="lunch"> Lunch</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="dinner"
+              name="dinner"
+              value="dinner"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.filteredRecipes)"
+            />
+            <label for="dinner"> Dinner</label>
           </div>
         </span>
       </BaseCard>
@@ -83,8 +100,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "SideBar",
+  data() {
+    return {
+      searchTags: [],
+    };
+  },
   props: {
     width: {
       type: String,
@@ -93,6 +117,28 @@ export default {
     ctaText: {
       type: String,
       default: "Clear All",
+    },
+  },
+  computed: {
+    ...mapGetters({
+      recipes: "recipes/getRecipes",
+    }),
+
+    filteredRecipes() {
+      const selectedRecipes = [];
+      this.recipes.forEach((recipe) => {
+        recipe.tags.forEach((tag) => {
+          if (this.searchTags.includes(tag.name)) {
+            selectedRecipes.push(recipe);
+          }
+        });
+      });
+      return selectedRecipes;
+    },
+  },
+  methods: {
+    clearSelections() {
+      this.searchTags = [];
     },
   },
 };

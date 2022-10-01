@@ -10,7 +10,7 @@ export default {
             }
         };
 
-        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=0&size=20', options)
+        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=0&size=200', options)
 
         const data = await response.json()
 
@@ -46,17 +46,3 @@ export default {
 
 }
 
-
-
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         'X-RapidAPI-Key': 'f3478cccd7msh75938827c7a4860p19c339jsnb3a8e7cdbe57',
-//         'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
-//     }
-// };
-
-// fetch('https://tasty.p.rapidapi.com/recipes/list?from=0&size=20', options)
-//     .then(response => response.json())
-//     .then(response => console.log('res:', response))
-//     .catch(err => console.error(err));

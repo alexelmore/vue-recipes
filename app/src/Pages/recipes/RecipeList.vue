@@ -1,14 +1,17 @@
 <template>
   <div class="recipe-list">
-    <SideBar />
-    <ul id="example-2">
-      <li v-for="item in recipes" v-bind:key="item.name">
+    <SideBar @filteredRecipes="updateRecipeList" />
+    <ul id="example-2" v-if="selectedRecipes.length">
+      <li v-for="item in selectedRecipes" v-bind:key="item.name">
         <BaseCard
           >{{ item.name }} -
           <img class="recipe-list-image" :src="item.image" :alt="item.name" />
         </BaseCard>
       </li>
     </ul>
+    <div v-else>
+      <h2>No Items</h2>
+    </div>
   </div>
 </template>
 
@@ -20,10 +23,23 @@ export default {
   components: {
     SideBar,
   },
+  data() {
+    return {
+      selectedRecipes: [],
+    };
+  },
   computed: {
     ...mapGetters({
       recipes: "recipes/getRecipes",
     }),
+    showRecipes() {
+      return this.selectedRecipes;
+    },
+  },
+  methods: {
+    updateRecipeList(array) {
+      this.selectedRecipes = [...array];
+    },
   },
 };
 </script>

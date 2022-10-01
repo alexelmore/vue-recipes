@@ -7,10 +7,20 @@
 
 <script>
 import TheHeader from "./components/layout/TheHeader.vue";
+import { mapActions } from "vuex";
+
 export default {
   name: "App",
   components: {
     TheHeader,
+  },
+  created() {
+    this.fetchRecipes();
+  },
+  methods: {
+    ...mapActions({
+      fetchRecipes: "recipes/fetchRecipes",
+    }),
   },
 };
 </script>
