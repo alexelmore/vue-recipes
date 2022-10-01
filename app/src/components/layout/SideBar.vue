@@ -139,6 +139,7 @@ export default {
   methods: {
     clearSelections() {
       this.searchTags = [];
+      this.$emit("filteredRecipes", []);
     },
   },
 };
