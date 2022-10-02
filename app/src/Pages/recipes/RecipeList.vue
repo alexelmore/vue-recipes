@@ -4,7 +4,7 @@
       @clearSelections="updateRecipeList"
       @filteredRecipes="updateRecipeList"
     />
-    <ul id="example-2" v-if="selectedRecipes.length">
+    <ul class="recipe-items-list" v-if="selectedRecipes.length">
       <li v-for="item in selectedRecipes" v-bind:key="item.name">
         <BaseCard
           >{{ item.name }} -
@@ -12,7 +12,7 @@
         </BaseCard>
       </li>
     </ul>
-    <div v-else>
+    <div v-else class="no-items-list">
       <h2>No Items</h2>
     </div>
   </div>
@@ -74,18 +74,14 @@ ul {
 .recipe-list {
   display: flex;
   margin: auto;
-  min-width: 800px;
-  max-width: 1000px;
+  width: 1000px;
   justify-content: space-evenly;
 }
-.recipe-items {
-  width: 60%;
+.recipe-items-list,
+.no-items-list {
+  width: 30rem;
 }
 .recipe-list-image {
-  height: 20rem;
-}
-.controls {
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
 }
 </style>
