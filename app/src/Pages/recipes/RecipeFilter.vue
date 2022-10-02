@@ -190,8 +190,8 @@ export default {
   data() {
     return {
       searchTags: [],
-      mealType: "breakfast",
-      prepTime: "under_30_minutes",
+      mealType: "",
+      prepTime: "",
       goHealthy: "",
     };
   },
@@ -293,8 +293,8 @@ export default {
 .filter-tgl + .tgl-btn:after {
   border-radius: 50%;
   background: #fff;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .tgl-light:checked + .tgl-btn {
   background: #9fd6ae;

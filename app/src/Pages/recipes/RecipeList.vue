@@ -6,10 +6,12 @@
     />
     <ul class="recipe-items-list" v-if="selectedRecipes.length">
       <li v-for="item in selectedRecipes" v-bind:key="item.name">
-        <BaseCard
-          >{{ item.name }} -
-          <img class="recipe-list-image" :src="item.image" :alt="item.name" />
-        </BaseCard>
+        <router-link :to="recipeItemPath(item.id)">
+          <BaseCard class="recipe-item">
+            <h2>{{ item.name }}</h2>
+            <img class="recipe-list-image" :src="item.image" :alt="item.name" />
+          </BaseCard>
+        </router-link>
       </li>
     </ul>
     <div v-else class="no-items-list">
@@ -42,8 +44,6 @@ export default {
   },
   methods: {
     updateRecipeList(array) {
-      console.log("fired");
-      console.log(array);
       this.selectedTags = [...array];
       this.selectedRecipes = [];
 
@@ -62,6 +62,9 @@ export default {
     includesAll(arr, values) {
       return values.every((v) => arr.includes(v));
     },
+    recipeItemPath(id) {
+      return `${this.$route.path}/${id}`;
+    },
   },
 };
 </script>
@@ -73,7 +76,7 @@ ul {
 }
 .recipe-list {
   display: flex;
-  margin: auto;
+  margin: 2rem auto;
   width: 1000px;
   justify-content: space-evenly;
 }
@@ -81,7 +84,15 @@ ul {
 .no-items-list {
   width: 30rem;
 }
+.recipe-item {
+  text-align: center;
+}
+.recipe-item:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
 .recipe-list-image {
   width: 100%;
+  border-radius: 10%;
 }
 </style>

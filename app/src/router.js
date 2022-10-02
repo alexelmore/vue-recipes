@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 
 // Load Below components and their paths only when they are needed
-const RecipeDetail = () => import('./Pages/recipes/AddRecipeForm.vue');
+const RecipeDetail = () => import('./Pages/recipes/RecipeDetail.vue');
 const AddRecipeForm = () => import('./Pages/recipes/AddRecipeForm.vue');
 const RecipeList = () => import('./Pages/recipes/RecipeList.vue');
 const NotFound = () => import('./Pages/NotFound.vue');

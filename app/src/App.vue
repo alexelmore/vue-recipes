@@ -46,4 +46,24 @@ li {
 body {
   margin: 0;
 }
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+a:focus {
+  text-decoration: none;
+  color: black;
+}
+a:active {
+  text-decoration: none;
+  color: black;
+}
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+a:link {
+  text-decoration: none;
+  color: black;
+}
 </style>
