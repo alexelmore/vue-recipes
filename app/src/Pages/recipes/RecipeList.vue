@@ -1,6 +1,9 @@
 <template>
   <div class="recipe-list">
-    <SideBar @filteredRecipes="updateRecipeList" />
+    <SideBar
+      @clearSelections="updateRecipeList"
+      @filteredRecipes="updateRecipeList"
+    />
     <ul id="example-2" v-if="selectedRecipes.length">
       <li v-for="item in selectedRecipes" v-bind:key="item.name">
         <BaseCard
@@ -39,6 +42,8 @@ export default {
   },
   methods: {
     updateRecipeList(array) {
+      console.log("fired");
+      console.log(array);
       this.selectedTags = [...array];
       this.selectedRecipes = [];
 
