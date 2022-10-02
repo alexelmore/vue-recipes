@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="filter-header">
       <h2 class="filter-title">Filter Recipes</h2>
       <BaseButton @click="clearSelections" mode="flat" class="filter-cta">
         {{ ctaText }}
@@ -8,50 +8,66 @@
     </div>
 
     <div class="filter-items">
+      <div class="filter-toggle">
+        <input
+          name="healthy"
+          value="healthy"
+          class="filter-tgl tgl-light"
+          id="healthy"
+          type="checkbox"
+          v-model="goHealthy"
+          @change="$emit('filteredRecipes', this.combinedTags)"
+        />
+        <label class="tgl-btn" for="healthy"></label>
+        <label class="tgl-btn" for="healthy">
+          <h4>Go Healthy!</h4>
+        </label>
+      </div>
+
       <BaseCard>
         <h2 class="filter-title">Meal Type</h2>
         <span class="filter-option">
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="breakfast"
               name="breakfast"
               value="breakfast"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="breakfast"> Breakfast</label>
           </div>
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="brunch"
               name="brunch"
               value="brunch"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="brunch"> Brunch</label>
           </div>
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="lunch"
               name="lunch"
-              value="Lunch"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              value="lunch"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="lunch"> Lunch</label>
           </div>
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="dinner"
               name="dinner"
               value="dinner"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="dinner"> Dinner</label>
           </div>
@@ -67,7 +83,7 @@
               name="vegetarian"
               value="vegetarian"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="vegetarian"> Vegetarian</label>
           </div>
@@ -78,7 +94,7 @@
               name="vegan"
               value="vegan"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="vegan"> Vegan</label>
           </div>
@@ -89,7 +105,7 @@
               name="dairy_free"
               value="dairy_free"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="dairy_free"> Dairy-Free</label>
           </div>
@@ -100,7 +116,7 @@
               name="gluten_free"
               value="gluten_free"
               v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="gluten_free"> Gluten-Free</label>
           </div>
@@ -111,46 +127,46 @@
         <span class="filter-option">
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="under_15_minutes"
               name="under_15_minutes"
               value="under_15_minutes"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="prepTime"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="under_15_minutes"> Under 15 Minutes</label>
           </div>
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="under_30_minutes"
               name="under_30_minutes"
               value="under_30_minutes"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="prepTime"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="under_30_minutes"> Under 30 Minutes</label>
           </div>
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="under_45_minutes"
               name="under_45_minutes"
               value="under_45_minutes"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="prepTime"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="under_45_minutes"> Under 45 Minutes</label>
           </div>
 
           <div>
             <input
-              type="checkbox"
+              type="radio"
               id="under_1_hour"
               name="under_1_hour"
               value="under_1_hour"
-              v-model="searchTags"
-              @change="$emit('filteredRecipes', this.searchTags)"
+              v-model="prepTime"
+              @change="$emit('filteredRecipes', this.combinedTags)"
             />
             <label for="under_1_hour"> Under An Hour</label>
           </div>
@@ -174,12 +190,29 @@ export default {
   data() {
     return {
       searchTags: [],
+      mealType: "breakfast",
+      prepTime: "under_30_minutes",
+      goHealthy: "",
     };
   },
   computed: {
     ...mapGetters({
       recipes: "recipes/getRecipes",
     }),
+
+    combinedTags() {
+      let arr = [...this.searchTags];
+      if (this.goHealthy === true) {
+        arr.push("healthy");
+      }
+      if (this.mealType !== "") {
+        arr.push(this.mealType);
+      }
+      if (this.prepTime !== "") {
+        arr.push(this.prepTime);
+      }
+      return arr;
+    },
   },
   props: {
     ctaText: {
@@ -188,27 +221,11 @@ export default {
     },
   },
   methods: {
-    updateRecipeList(array) {
-      this.selectedTags = [...array];
-      this.selectedRecipes = [];
-
-      this.recipes.forEach((recipe) => {
-        const tagNames = [];
-
-        for (const tag in recipe.tags) {
-          tagNames.push(recipe.tags[tag].name);
-        }
-
-        const shouldAdd = this.includesAll(tagNames, this.selectedTags);
-        if (shouldAdd && this.selectedTags.length)
-          this.selectedRecipes.push(recipe);
-      });
-    },
-    includesAll(arr, values) {
-      return values.every((v) => arr.includes(v));
-    },
     clearSelections() {
       this.searchTags = [];
+      this.goHealthy = false;
+      this.mealType = "";
+      this.prepTime = "";
       this.$emit("clearSelections", []);
     },
   },
@@ -228,6 +245,59 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+}
+.filter-toggle {
+  display: flex;
+  flex-flow: column;
+}
+.filter-tgl {
+  display: none;
+}
+.filter-tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 4em;
+  height: 2em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.filter-tgl + .tgl-btn:after,
+.filter-tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.filter-tgl + .tgl-btn:after {
+  left: 0;
+}
+.filter-tgl + .tgl-btn:before {
+  display: none;
+}
+.filter-tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+.filter-tgl + .tgl-btn {
+  background: #c2bcbc;
+  border-radius: 2em;
+  padding: 2px;
+  -webkit-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+}
+.filter-tgl + .tgl-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.tgl-light:checked + .tgl-btn {
+  background: #9fd6ae;
 }
 </style>
  
