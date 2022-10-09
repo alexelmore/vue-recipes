@@ -26,6 +26,9 @@ export default {
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,10 +44,12 @@ p,
 ul,
 li {
   margin: 0.2rem 0;
-  padding: 0;
+  padding: none;
+  font-family: "Berkshire Swash", cursive;
 }
 body {
   margin: 0;
+  background-image: url("./assets/food.jpg");
 }
 a:hover {
   text-decoration: none;

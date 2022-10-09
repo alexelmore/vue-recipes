@@ -18,7 +18,7 @@ export default {
   props: {
     width: {
       type: String,
-      default: "300",
+      default: "350",
     },
   },
   computed: {
@@ -38,4 +38,11 @@ export default {
 </script>
 
 <style scoped>
+.sidebar {
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  height: fit-content;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
 </style>

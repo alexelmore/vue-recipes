@@ -2,7 +2,7 @@
   <div>
     <div class="filter-header">
       <h2 class="filter-title">Filter Recipes</h2>
-      <BaseButton @click="clearSelections" mode="flat" class="filter-cta">
+      <BaseButton @click="clearSelections" class="filter-cta">
         {{ ctaText }}
       </BaseButton>
     </div>
@@ -20,7 +20,7 @@
         />
         <label class="tgl-btn" for="healthy"></label>
         <label class="tgl-btn" for="healthy">
-          <h4>Go Healthy!</h4>
+          <h4>{{ healCtaText }}</h4>
         </label>
       </div>
 
@@ -213,6 +213,10 @@ export default {
       }
       return arr;
     },
+
+    healCtaText() {
+      return this.goHealthy === true ? "Healthy Enabled" : "Healthy Disabled";
+    },
   },
   props: {
     ctaText: {
@@ -240,6 +244,7 @@ export default {
 .filter-items {
   width: 100%;
   text-align: left;
+  margin-top: 1rem;
 }
 .filter-option {
   display: flex;
@@ -248,7 +253,8 @@ export default {
 }
 .filter-toggle {
   display: flex;
-  flex-flow: column;
+  justify-content: start;
+  margin-bottom: 1rem;
 }
 .filter-tgl {
   display: none;
@@ -297,7 +303,11 @@ export default {
   transition: all 0.2s ease-in-out;
 }
 .tgl-light:checked + .tgl-btn {
-  background: #9fd6ae;
+  background: #11f14e;
+}
+
+.tgl-btn h4 {
+  margin-left: 0.5rem;
 }
 </style>
  

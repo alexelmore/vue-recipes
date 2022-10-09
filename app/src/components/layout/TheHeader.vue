@@ -2,13 +2,11 @@
   <header>
     <nav>
       <h1>
-        <BaseButton link="true" to="/recipes">My Recipes</BaseButton>
+        <BaseButton link="true" to="/recipes">Recipe Me!</BaseButton>
       </h1>
-      <ul>
-        <li>
-          <BaseButton link="true" to="/addRecipe">Add A Recipe</BaseButton>
-        </li>
-      </ul>
+      <h1>
+        <BaseButton link="true" to="/addRecipe">My Favs!</BaseButton>
+      </h1>
     </nav>
   </header>
 </template>
@@ -22,15 +20,17 @@ export default {
 <style scoped>
 header {
   width: 100%;
-  height: 5rem;
-  background-color: #3d008d;
+  min-height: 6.5rem;
+  background-color: #11f14e;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
 }
 header a {
   text-decoration: none;
-  color: #f391e3;
+  color: #dfffd2;
   display: inline-block;
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
@@ -38,7 +38,7 @@ header a {
 a:active,
 a:hover,
 a.router-link-active {
-  border: 1px solid #f391e3;
+  border: 4px solid #f8f4b6;
 }
 h1 {
   margin: 0;
@@ -50,7 +50,7 @@ h1 a {
 h1 a:hover,
 h1 a:active,
 h1 a.router-link-active {
-  border-color: #f391e3;
+  border-color: #dfffd2;
 }
 header nav {
   width: 90%;
@@ -81,7 +81,7 @@ li {
 .banner a {
   border-radius: 10px;
   width: 100%;
-  border: 2px solid #f391e3;
+  border: 2px solid #dfffd2;
   pointer-events: none;
 }
 </style>

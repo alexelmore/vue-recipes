@@ -1,6 +1,6 @@
 <template>
   <BaseCard class="recipe-detail-item">
-    <div class="recipe-detail-context">
+    <BaseCard class="recipe-detail-context">
       <h2>{{ recipe.name }}</h2>
       <p v-if="recipe.description">
         <i>{{ recipe.description }}</i>
@@ -9,16 +9,32 @@
         Time To Cook: {{ recipe.total_time_minutes }} minutes
       </h4>
       <h4 v-if="recipe.yields">{{ recipe.yields }}</h4>
-    </div>
+    </BaseCard>
     <img class="recipe-detail-image" :src="recipe.image" :alt="recipe.name" />
-    <div class="recipe-detail-context" v-if="recipe.instructions">
+    <BaseCard class="recipe-detail-ingredients" v-if="recipe.ingredients">
+      <h2>Ingredients</h2>
+      <BaseCard
+        :style="[index !== 0 ? 'display:none;' : '']"
+        v-for="(recipe, index) in recipe.ingredients"
+        :key="recipe.id"
+      >
+        <span>
+          <ul v-for="(ing, idx) in recipe.components" :key="ing">
+            <li>
+              <strong>{{ idx + 1 }}:</strong> {{ ing.raw_text }}
+            </li>
+          </ul>
+        </span>
+      </BaseCard>
+    </BaseCard>
+    <BaseCard class="recipe-detail-context" v-if="recipe.instructions">
       <h2>Cooking Instructions</h2>
       <ul v-for="(recipe, idx) in recipe.instructions" :key="recipe.id">
         <li>
           <strong>Step {{ idx + 1 }}:</strong> {{ recipe.display_text }}
         </li>
       </ul>
-    </div>
+    </BaseCard>
   </BaseCard>
 </template>
 
@@ -51,15 +67,35 @@ export default {
 <style>
 .recipe-detail-item {
   max-width: fit-content;
+  background-color: #11f14ec4;
+  border: 2px black;
 }
 .recipe-detail-image {
   width: 100%;
   border-radius: 10%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 .recipe-detail-context {
   margin: 1rem auto;
-  width: 30rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 3%;
 }
+.recipe-detail-context li {
+  font-size: 1.3rem;
+}
+.recipe-detail-ingredients {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 1rem auto;
+  background: white;
+  border-radius: 3%;
+  padding: 1rem;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+}
+
 ul {
   list-style: none;
   margin: 1rem auto;

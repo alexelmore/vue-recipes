@@ -10,7 +10,7 @@ export default {
             }
         };
 
-        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=110&size=200', options)
+        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=130&size=200', options)
 
         const data = await response.json()
 
@@ -27,6 +27,7 @@ export default {
                         num_servings: data.results[key].num_servings,
                         yields: data.results[key].yields,
                         instructions: data.results[key].instructions,
+                        ingredients: data.results[key].sections,
                         tags: data.results[key].tags,
                         image: data.results[key].thumbnail_url,
                         canonical_id: data.results[key].canonical_id

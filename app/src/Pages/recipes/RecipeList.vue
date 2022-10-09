@@ -79,20 +79,35 @@ ul {
   margin: 2rem auto;
   width: 1000px;
   justify-content: space-evenly;
+  padding: 2rem;
+  background-color: #11f14ec4;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
+.recipe-items-list {
+  padding: 0.5rem;
+}
+
 .recipe-items-list,
 .no-items-list {
   width: 30rem;
 }
 .recipe-item {
   text-align: center;
+  background: white;
+  transition: transform 0.3s, filter 1.5s ease-in-out;
+  filter: grayscale(100%);
+  transform: scale(1);
+  margin: 32px auto;
 }
 .recipe-item:hover {
-  opacity: 50%;
-  cursor: pointer;
+  filter: grayscale(0);
+  transform: scale(1.1);
+  margin-bottom: 2rem;
 }
 .recipe-list-image {
   width: 100%;
   border-radius: 10%;
 }
 </style>
+
