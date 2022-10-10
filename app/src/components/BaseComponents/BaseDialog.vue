@@ -57,7 +57,7 @@ export default {
   left: 0;
   height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(14 14 14 / 23%);
   z-index: 10;
 }
 dialog {
@@ -75,7 +75,7 @@ dialog {
   background-color: white;
 }
 header {
-  background-color: #3a0061;
+  background-color: #11f14e;
   color: white;
   width: 100%;
   padding: 1rem;

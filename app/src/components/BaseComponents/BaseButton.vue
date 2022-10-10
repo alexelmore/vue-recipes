@@ -33,7 +33,8 @@ button,
 a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
-  font: inherit;
+  font-family: "Berkshire Swash", cursive;
+  font-size: inherit;
   background-color: #005a00;
   border: 1px solid black;
   color: white;

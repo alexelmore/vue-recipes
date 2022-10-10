@@ -6,12 +6,25 @@
     />
     <ul class="recipe-items-list" v-if="selectedRecipes.length">
       <li v-for="item in selectedRecipes" v-bind:key="item.name">
-        <router-link :to="recipeItemPath(item.id)">
+        <div @click.stop="goToRecipePage(item.id)">
           <BaseCard class="recipe-item">
+            <BaseDialog
+              @close="this.closeModal()"
+              :show="showRegModal"
+              title="Huzzah!"
+            >
+              <h3>{{ message }}</h3>
+              <router-link to="/addRecipe">Go To Favorites</router-link>
+            </BaseDialog>
             <h2>{{ item.name }}</h2>
+
+            <font-awesome-icon
+              @click.stop="addToFavorites(item.name)"
+              icon="fa-solid fa-heart"
+            />
             <img class="recipe-list-image" :src="item.image" :alt="item.name" />
           </BaseCard>
-        </router-link>
+        </div>
       </li>
     </ul>
     <div v-else class="no-items-list">
@@ -32,6 +45,8 @@ export default {
     return {
       selectedRecipes: [],
       selectedTags: [],
+      showRegModal: false,
+      message: "",
     };
   },
   computed: {
@@ -62,8 +77,16 @@ export default {
     includesAll(arr, values) {
       return values.every((v) => arr.includes(v));
     },
-    recipeItemPath(id) {
-      return `${this.$route.path}/${id}`;
+    addToFavorites(name) {
+      this.message = `"${name}" has been added to your favorites!`;
+      this.showRegModal = true;
+    },
+    closeModal() {
+      this.showRegModal = false;
+      this.$router.replace("/");
+    },
+    goToRecipePage(id) {
+      this.$router.replace(`${this.$route.path}/${id}`);
     },
   },
 };
@@ -99,15 +122,34 @@ ul {
   filter: grayscale(100%);
   transform: scale(1);
   margin: 32px auto;
+  position: relative;
+  z-index: 9;
 }
 .recipe-item:hover {
   filter: grayscale(0);
   transform: scale(1.1);
   margin-bottom: 2rem;
 }
+
+.recipe-item h2 {
+  padding: 2rem;
+}
 .recipe-list-image {
   width: 100%;
   border-radius: 10%;
+}
+.fa-heart {
+  position: absolute;
+  background: unset;
+  height: 2.125rem;
+  right: 30px;
+  top: 15px;
+  width: 2.125rem;
+  z-index: 10;
+  color: #5d5d5b;
+}
+.fa-heart:hover {
+  color: #11f14e;
 }
 </style>
 
