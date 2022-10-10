@@ -42,8 +42,17 @@ export default {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    // Action that adds a recipe to the favorites array in the store
+    addToFavorites(context, recipe) {
+        console.log("add to state:", recipe)
+        context.commit('addToFavorites', recipe)
+    },
+
+    // Action that removes a recipe from the favorites array in the store 
+    removeFromFavorites(context, recipeId) {
+        context.commit('removeFromFavorites', recipeId)
     }
-
-
 }
 

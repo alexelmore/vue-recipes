@@ -39,10 +39,7 @@ export default {
 h1,
 h2,
 h3,
-h4,
-p,
-ul,
-li {
+h4 {
   margin: 0.2rem 0;
   padding: none;
   font-family: "Berkshire Swash", cursive;

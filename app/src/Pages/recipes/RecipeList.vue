@@ -14,12 +14,12 @@
               title="Huzzah!"
             >
               <h3>{{ message }}</h3>
-              <router-link to="/addRecipe">Go To Favorites</router-link>
+              <router-link to="/addToFavPage">Go To Favorites</router-link>
             </BaseDialog>
             <h2>{{ item.name }}</h2>
 
             <font-awesome-icon
-              @click.stop="addToFavorites(item.name)"
+              @click.stop="addRecipeToFavorites(item)"
               icon="fa-solid fa-heart"
             />
             <img class="recipe-list-image" :src="item.image" :alt="item.name" />
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import SideBar from "../../components/layout/SideBar.vue";
 export default {
   name: "RecipeList",
@@ -77,9 +77,10 @@ export default {
     includesAll(arr, values) {
       return values.every((v) => arr.includes(v));
     },
-    addToFavorites(name) {
-      this.message = `"${name}" has been added to your favorites!`;
+    addRecipeToFavorites(recipe) {
+      this.message = `"${recipe.name}" has been added to your favorites!`;
       this.showRegModal = true;
+      this.addToFavorites(recipe);
     },
     closeModal() {
       this.showRegModal = false;
@@ -88,10 +89,14 @@ export default {
     goToRecipePage(id) {
       this.$router.replace(`${this.$route.path}/${id}`);
     },
+
+    ...mapActions({
+      addToFavorites: "recipes/addToFavorites",
+    }),
   },
 };
 </script>
-<style scoped>
+<style >
 ul {
   list-style: none;
   margin: 0;
@@ -100,7 +105,7 @@ ul {
 .recipe-list {
   display: flex;
   margin: 2rem auto;
-  width: 1000px;
+  max-width: 1000px;
   justify-content: space-evenly;
   padding: 2rem;
   background-color: #11f14ec4;
@@ -121,18 +126,17 @@ ul {
   transition: transform 0.3s, filter 1.5s ease-in-out;
   filter: grayscale(100%);
   transform: scale(1);
-  margin: 32px auto;
+  margin: 2rem 0 2.5rem 0 !important;
   position: relative;
   z-index: 9;
 }
 .recipe-item:hover {
   filter: grayscale(0);
   transform: scale(1.1);
-  margin-bottom: 2rem;
 }
 
 .recipe-item h2 {
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 .recipe-list-image {
   width: 100%;

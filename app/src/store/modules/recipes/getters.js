@@ -6,5 +6,9 @@ export default {
 
     getRecipeById: (state) => (id) => {
         return state.recipes.find(recipe => +recipe.id === +id)
+    },
+
+    getFavorites(state) {
+        return state.favorites
     }
 }

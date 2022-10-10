@@ -5,7 +5,7 @@
         <BaseButton link="true" to="/recipes">Recipe Me!</BaseButton>
       </h1>
       <h1>
-        <BaseButton link="true" to="/addRecipe">My Favs!</BaseButton>
+        <BaseButton link="true" to="/addToFavPage">My Favs!</BaseButton>
       </h1>
     </nav>
   </header>

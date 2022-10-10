@@ -5,7 +5,8 @@ export default {
     namespaced: true,
     state() {
         return {
-            recipes: []
+            recipes: [],
+            favorites: []
         }
 
     },
