@@ -21,12 +21,13 @@ export default {
 header {
   width: 100%;
   min-height: 6.5rem;
-  background-color: #11f14e;
+  background-color: #11f14ec4;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
+  border-bottom: 6px ridge #005a00;
 }
 header a {
   text-decoration: none;

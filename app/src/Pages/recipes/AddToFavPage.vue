@@ -8,10 +8,12 @@
             <BaseDialog
               @close="this.closeModal()"
               :show="showRegModal"
-              title="Huzzah!"
+              title="Favorite Removed"
             >
-              <h3>{{ message }}</h3>
-              <router-link to="/addToFavPage">Go To Favorites</router-link>
+              <h3 class="dialog-message">{{ message }}</h3>
+              <BaseButton link="true" to="/recipes"
+                >Go Back To Recipes List</BaseButton
+              >
             </BaseDialog>
             <h2>{{ item.name }}</h2>
 
@@ -55,11 +57,10 @@ export default {
       this.showRegModal = true;
 
       if (this.favorites.length > 1) {
-        this.removeFromFavorites(recipe.id);
+        this.removeFromFavorites(recipe);
       } else if (!this.favorites.length <= 1) {
         setTimeout(() => {
-          this.removeFromFavorites(recipe.id);
-          this.$router.replace(`/recipes`);
+          this.removeFromFavorites(recipe);
         }, 1900);
       }
     },
@@ -90,9 +91,10 @@ ul {
   width: 1000px;
   justify-content: space-evenly;
   padding: 2rem;
-  background-color: #11f14e;
+  background-color: #11f14ec4;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 6px ridge #005a00;
 }
 .favorites-items-list {
   padding: 0.5rem;
@@ -101,6 +103,14 @@ ul {
 .favorites-items-list,
 .no-items-list {
   width: 30rem;
+}
+.no-items-list {
+  color: #005a00;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-self: center;
+  -webkit-text-stroke: 1px black;
 }
 .favorites-items-header {
   color: white;
@@ -120,7 +130,9 @@ ul {
   position: relative;
   z-index: 9;
 }
-
+.dialog-message {
+  margin-bottom: 1rem;
+}
 .favorites-item h2 {
   padding: 1rem 2rem;
 }
@@ -140,5 +152,6 @@ ul {
 }
 .fa-heart:hover {
   color: #5d5d5b;
+  cursor: pointer;
 }
 </style>

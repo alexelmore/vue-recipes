@@ -30,7 +30,8 @@ export default {
                         ingredients: data.results[key].sections,
                         tags: data.results[key].tags,
                         image: data.results[key].thumbnail_url,
-                        canonical_id: data.results[key].canonical_id
+                        canonical_id: data.results[key].canonical_id,
+                        isFavorite: false
                     }
                     recipes.push(recipe)
                 }
@@ -46,13 +47,18 @@ export default {
 
     // Action that adds a recipe to the favorites array in the store
     addToFavorites(context, recipe) {
-        console.log("add to state:", recipe)
-        context.commit('addToFavorites', recipe)
+        const updatedArray = context.state.recipes.filter(rec => rec.id !== recipe.id)
+        recipe.isFavorite = true;
+        console.log(recipe)
+        updatedArray.push(recipe)
+
+        context.commit('addToFavorites', updatedArray)
+
     },
 
     // Action that removes a recipe from the favorites array in the store 
-    removeFromFavorites(context, recipeId) {
-        context.commit('removeFromFavorites', recipeId)
+    removeFromFavorites(context, recipe) {
+        context.commit('removeFromFavorites', recipe)
     }
 }
 

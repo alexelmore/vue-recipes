@@ -1,6 +1,10 @@
 <template>
   <BaseCard class="recipe-detail-item">
     <BaseCard class="recipe-detail-context">
+      <font-awesome-icon
+        icon="fa-solid fa-heart"
+        :class="{ 'is-favorite': recipe.isFavorite }"
+      />
       <h2>{{ recipe.name }}</h2>
       <p v-if="recipe.description">
         <i>{{ recipe.description }}</i>
@@ -13,19 +17,17 @@
     <img class="recipe-detail-image" :src="recipe.image" :alt="recipe.name" />
     <BaseCard class="recipe-detail-ingredients" v-if="recipe.ingredients">
       <h2>Ingredients</h2>
-      <BaseCard
+      <div
         :style="[index !== 0 ? 'display:none;' : '']"
         v-for="(recipe, index) in recipe.ingredients"
         :key="recipe.id"
       >
-        <span>
-          <ul v-for="(ing, idx) in recipe.components" :key="ing">
-            <li>
-              <strong>{{ idx + 1 }}:</strong> {{ ing.raw_text }}
-            </li>
-          </ul>
-        </span>
-      </BaseCard>
+        <ul v-for="(ing, idx) in recipe.components" :key="ing">
+          <li>
+            <strong>{{ idx + 1 }}:</strong> {{ ing.raw_text }}
+          </li>
+        </ul>
+      </div>
     </BaseCard>
     <BaseCard class="recipe-detail-context" v-if="recipe.instructions">
       <h2>Cooking Instructions</h2>
@@ -69,6 +71,7 @@ export default {
   max-width: fit-content;
   background-color: #11f14ec4;
   border: 2px black;
+  border: 6px ridge #005a00;
 }
 .recipe-detail-image {
   width: 100%;
@@ -80,6 +83,7 @@ export default {
   padding: 2rem;
   background: white;
   border-radius: 3%;
+  position: relative;
 }
 .recipe-detail-context li {
   font-size: 1.3rem;

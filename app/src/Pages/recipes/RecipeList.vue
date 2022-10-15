@@ -7,28 +7,35 @@
     <ul class="recipe-items-list" v-if="selectedRecipes.length">
       <li v-for="item in selectedRecipes" v-bind:key="item.name">
         <div @click.stop="goToRecipePage(item.id)">
-          <BaseCard class="recipe-item">
+          <BaseCard
+            class="recipe-item"
+            :class="{ 'item-is-fav': item.isFavorite }"
+          >
             <BaseDialog
               @close="this.closeModal()"
               :show="showRegModal"
               title="Huzzah!"
             >
-              <h3>{{ message }}</h3>
-              <router-link to="/addToFavPage">Go To Favorites</router-link>
+              <h3 class="dialog-message">{{ message }}</h3>
+              <BaseButton link="true" to="/addToFavPage"
+                >Go To My Favs!</BaseButton
+              >
             </BaseDialog>
             <h2>{{ item.name }}</h2>
 
             <font-awesome-icon
               @click.stop="addRecipeToFavorites(item)"
               icon="fa-solid fa-heart"
+              :class="{ 'is-favorite': item.isFavorite }"
             />
+
             <img class="recipe-list-image" :src="item.image" :alt="item.name" />
           </BaseCard>
         </div>
       </li>
     </ul>
     <div v-else class="no-items-list">
-      <h2>No Items</h2>
+      <h2>No Recipes Found</h2>
     </div>
   </div>
 </template>
@@ -80,6 +87,7 @@ export default {
     addRecipeToFavorites(recipe) {
       this.message = `"${recipe.name}" has been added to your favorites!`;
       this.showRegModal = true;
+
       this.addToFavorites(recipe);
     },
     closeModal() {
@@ -111,6 +119,7 @@ ul {
   background-color: #11f14ec4;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 6px ridge #005a00;
 }
 .recipe-items-list {
   padding: 0.5rem;
@@ -118,7 +127,16 @@ ul {
 
 .recipe-items-list,
 .no-items-list {
-  width: 30rem;
+  width: 480px;
+}
+.no-items-list {
+  color: #005a00;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-self: center;
+  font-size: 2.5rem;
+  -webkit-text-stroke: 1px black;
 }
 .recipe-item {
   text-align: center;
@@ -135,12 +153,19 @@ ul {
   transform: scale(1.1);
 }
 
+.item-is-fav {
+  filter: grayscale(0) !important;
+}
+
 .recipe-item h2 {
   padding: 1rem 2rem;
 }
 .recipe-list-image {
   width: 100%;
   border-radius: 10%;
+}
+.dialog-message {
+  margin-bottom: 1rem;
 }
 .fa-heart {
   position: absolute;
@@ -154,6 +179,15 @@ ul {
 }
 .fa-heart:hover {
   color: #11f14e;
+  cursor: pointer;
+}
+
+.is-favorite {
+  color: #11f14e !important;
+}
+
+.is-favorite:hover {
+  color: #5d5d5b !important;
 }
 </style>
 
