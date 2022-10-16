@@ -15,7 +15,7 @@
                 >Go Back To Recipes List</BaseButton
               >
             </BaseDialog>
-            <h2>{{ item.name }}</h2>
+            <h2 class="recipe-item-name">{{ item.name }}</h2>
 
             <font-awesome-icon
               @click.stop="RemoveFromFavorites(item)"

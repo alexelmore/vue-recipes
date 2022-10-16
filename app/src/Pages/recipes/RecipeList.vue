@@ -7,26 +7,24 @@
     <div v-if="selectedTags.length">
       <ul class="recipe-items-list" v-if="selectedRecipes.length">
         <RecipeSort @sortType="sortRecipes" />
+        <BaseDialog
+          @close="this.closeModal()"
+          :show="showRegModal"
+          title="Huzzah!"
+        >
+          <h3 class="dialog-message">{{ message }}</h3>
+          <BaseButton link="true" to="/addToFavPage">Go To My Favs!</BaseButton>
+        </BaseDialog>
         <li v-for="item in selectedRecipes" v-bind:key="item.name">
           <div @click.stop="goToRecipePage(item.id)">
             <BaseCard
               class="recipe-item"
               :class="{ 'item-is-fav': item.isFavorite }"
             >
-              <BaseDialog
-                @close="this.closeModal()"
-                :show="showRegModal"
-                title="Huzzah!"
-              >
-                <h3 class="dialog-message">{{ message }}</h3>
-                <BaseButton link="true" to="/addToFavPage"
-                  >Go To My Favs!</BaseButton
-                >
-              </BaseDialog>
-              <h2>{{ item.name }}</h2>
+              <h2 class="recipe-item-name">{{ item.name }}</h2>
 
               <font-awesome-icon
-                @click.stop="addRecipeToFavorites(item)"
+                @click.stop="toggleItemFavorites(item, item.isFavorite)"
                 icon="fa-solid fa-heart"
                 :class="{ 'is-favorite': item.isFavorite }"
               />
@@ -47,26 +45,24 @@
     <div v-else>
       <ul class="recipe-items-list">
         <RecipeSort @sortType="sortRecipes" />
+        <BaseDialog
+          @close="this.closeModal()"
+          :show="showRegModal"
+          title="Huzzah!"
+        >
+          <h3 class="dialog-message">{{ message }}</h3>
+          <BaseButton link="true" to="/addToFavPage">Go To My Favs!</BaseButton>
+        </BaseDialog>
         <li v-for="item in recipes" v-bind:key="item.name">
           <div @click.stop="goToRecipePage(item.id)">
             <BaseCard
               class="recipe-item"
               :class="{ 'item-is-fav': item.isFavorite }"
             >
-              <BaseDialog
-                @close="this.closeModal()"
-                :show="showRegModal"
-                title="Huzzah!"
-              >
-                <h3 class="dialog-message">{{ message }}</h3>
-                <BaseButton link="true" to="/addToFavPage"
-                  >Go To My Favs!</BaseButton
-                >
-              </BaseDialog>
-              <h2>{{ item.name }}</h2>
+              <h2 class="recipe-item-name">{{ item.name }}</h2>
 
               <font-awesome-icon
-                @click.stop="addRecipeToFavorites(item)"
+                @click.stop="toggleItemFavorites(item, item.isFavorite)"
                 icon="fa-solid fa-heart"
                 :class="{ 'is-favorite': item.isFavorite }"
               />
@@ -133,11 +129,19 @@ export default {
     includesAll(arr, values) {
       return values.every((v) => arr.includes(v));
     },
-    addRecipeToFavorites(recipe) {
-      this.message = `"${recipe.name}" has been added to your favorites!`;
-      this.showRegModal = true;
-
-      this.addToFavorites(recipe);
+    toggleItemFavorites(recipe, isFavorite) {
+      if (!isFavorite) {
+        this.message = `"${recipe.name}" has been added to your favorites!`;
+        this.showRegModal = true;
+        console.log(recipe.isFavorite);
+        recipe.isFavorite = isFavorite;
+        this.addToFavorites(recipe);
+      } else {
+        this.message = `"${recipe.name}" has been removed from your favorites!`;
+        this.showRegModal = true;
+        recipe.isFavorite = isFavorite;
+        this.removeFromFavorites(recipe);
+      }
     },
     closeModal() {
       this.showRegModal = false;
@@ -149,6 +153,7 @@ export default {
 
     ...mapActions({
       addToFavorites: "recipes/addToFavorites",
+      removeFromFavorites: "recipes/removeFromFavorites",
     }),
 
     sortRecipes(sortType) {
@@ -164,8 +169,17 @@ export default {
         this.recipes.sort((a, b) => a.name.localeCompare(b.name));
       }
 
-      if (sortType === "smallestSize")
-        this.recipes.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+      if (sortType === "smallestSize") {
+        this.recipes.sort(
+          (a, b) => parseFloat(a.num_servings) - parseFloat(b.num_servings)
+        );
+      }
+
+      if (sortType === "largestSize") {
+        this.recipes.sort(
+          (a, b) => parseFloat(b.num_servings) - parseFloat(a.num_servings)
+        );
+      }
     },
   },
 };
@@ -219,13 +233,15 @@ ul {
   transform: scale(1.1);
 }
 
+.recipe-item-name {
+  padding: 1rem 2rem;
+  max-width: 350px;
+  margin: 0 auto;
+}
 .item-is-fav {
   filter: grayscale(0) !important;
 }
 
-.recipe-item h2 {
-  padding: 1rem 2rem;
-}
 .recipe-list-image {
   width: 100%;
   border-radius: 10%;

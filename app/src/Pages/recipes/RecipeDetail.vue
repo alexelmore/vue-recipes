@@ -10,7 +10,7 @@
         :class="{ 'is-favorite': recipe.isFavorite }"
         @click.stop="toggleItemFavorites(recipe, recipe.isFavorite)"
       />
-      <h2>{{ recipe.name }}</h2>
+      <h2 class="recipe-item-name">{{ recipe.name }}</h2>
       <p v-if="recipe.description">
         <i>{{ recipe.description }}</i>
       </p>

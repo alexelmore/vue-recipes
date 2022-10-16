@@ -61,32 +61,47 @@ export default {
 
 <style>
 .dropbtn {
-  background-color: #3498db;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  font-family: "Berkshire Swash", cursive;
+  font-size: 1.5rem;
+  background-color: #005a00;
   color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
   cursor: pointer;
+  border-radius: 30px;
+  margin-right: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
+  width: 100%;
+  border: 1px solid black;
 }
 
-.dropbtn:hover,
-.dropbtn:focus {
-  background-color: #2980b9;
+.dropbtn:hover {
+  background-color: #b1ffb1;
+  color: black;
+  border: 2px solid black;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .dropdown-content {
   display: none;
-  position: absolute;
-  background-color: #f1f1f1;
+  background-color: #b1ffb1;
   min-width: 160px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 11;
+  padding: 1rem;
+  width: 90%;
+  margin: auto;
+  position: absolute;
+  border-radius: 30px;
+  left: 28px;
+  border: 2px solid black;
 }
 
 .dropdown-content a {

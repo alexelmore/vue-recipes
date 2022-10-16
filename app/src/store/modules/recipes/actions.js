@@ -24,7 +24,7 @@ export default {
                         name: data.results[key].name,
                         description: data.results[key].description,
                         total_time_minutes: data.results[key].total_time_minutes,
-                        num_servings: data.results[key].num_servings,
+                        num_servings: data.results[key].num_servings !== undefined ? data.results[key].num_servings : 1,
                         yields: data.results[key].yields,
                         instructions: data.results[key].instructions,
                         ingredients: data.results[key].sections,
