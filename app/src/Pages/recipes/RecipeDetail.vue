@@ -1,9 +1,14 @@
 <template>
   <BaseCard class="recipe-detail-item">
+    <BaseDialog @close="this.closeModal()" :show="showRegModal" title="Huzzah!">
+      <h3 class="dialog-message">{{ message }}</h3>
+      <BaseButton link="true" to="/addToFavPage">Go To My Favs!</BaseButton>
+    </BaseDialog>
     <BaseCard class="recipe-detail-context">
       <font-awesome-icon
         icon="fa-solid fa-heart"
         :class="{ 'is-favorite': recipe.isFavorite }"
+        @click.stop="toggleItemFavorites(recipe, recipe.isFavorite)"
       />
       <h2>{{ recipe.name }}</h2>
       <p v-if="recipe.description">
@@ -41,12 +46,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "RecipeDetail",
   data() {
     return {
       recipe: "",
+      showRegModal: false,
+      message: "",
     };
   },
   props: {
@@ -62,6 +69,31 @@ export default {
   },
   created() {
     this.recipe = this.$store.getters["recipes/getRecipeById"](this.id);
+  },
+  methods: {
+    toggleItemFavorites(recipe, isFavorite) {
+      console.log(isFavorite);
+      if (!isFavorite) {
+        this.message = `"${recipe.name}" has been added to your favorites!`;
+        this.showRegModal = true;
+
+        this.addToFavorites(recipe);
+      } else {
+        this.message = `"${recipe.name}" has been removed from your favorites!`;
+        this.showRegModal = true;
+
+        this.removeFromFavorites(recipe);
+      }
+    },
+
+    ...mapActions({
+      addToFavorites: "recipes/addToFavorites",
+      removeFromFavorites: "recipes/removeFromFavorites",
+    }),
+
+    closeModal() {
+      this.showRegModal = false;
+    },
   },
 };
 </script>

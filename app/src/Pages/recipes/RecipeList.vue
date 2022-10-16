@@ -4,38 +4,82 @@
       @clearSelections="updateRecipeList"
       @filteredRecipes="updateRecipeList"
     />
-    <ul class="recipe-items-list" v-if="selectedRecipes.length">
-      <li v-for="item in selectedRecipes" v-bind:key="item.name">
-        <div @click.stop="goToRecipePage(item.id)">
-          <BaseCard
-            class="recipe-item"
-            :class="{ 'item-is-fav': item.isFavorite }"
-          >
-            <BaseDialog
-              @close="this.closeModal()"
-              :show="showRegModal"
-              title="Huzzah!"
+    <div v-if="selectedTags.length">
+      <ul class="recipe-items-list" v-if="selectedRecipes.length">
+        <RecipeSort @sortType="sortRecipes" />
+        <li v-for="item in selectedRecipes" v-bind:key="item.name">
+          <div @click.stop="goToRecipePage(item.id)">
+            <BaseCard
+              class="recipe-item"
+              :class="{ 'item-is-fav': item.isFavorite }"
             >
-              <h3 class="dialog-message">{{ message }}</h3>
-              <BaseButton link="true" to="/addToFavPage"
-                >Go To My Favs!</BaseButton
+              <BaseDialog
+                @close="this.closeModal()"
+                :show="showRegModal"
+                title="Huzzah!"
               >
-            </BaseDialog>
-            <h2>{{ item.name }}</h2>
+                <h3 class="dialog-message">{{ message }}</h3>
+                <BaseButton link="true" to="/addToFavPage"
+                  >Go To My Favs!</BaseButton
+                >
+              </BaseDialog>
+              <h2>{{ item.name }}</h2>
 
-            <font-awesome-icon
-              @click.stop="addRecipeToFavorites(item)"
-              icon="fa-solid fa-heart"
-              :class="{ 'is-favorite': item.isFavorite }"
-            />
+              <font-awesome-icon
+                @click.stop="addRecipeToFavorites(item)"
+                icon="fa-solid fa-heart"
+                :class="{ 'is-favorite': item.isFavorite }"
+              />
 
-            <img class="recipe-list-image" :src="item.image" :alt="item.name" />
-          </BaseCard>
-        </div>
-      </li>
-    </ul>
-    <div v-else class="no-items-list">
-      <h2>No Recipes Found</h2>
+              <img
+                class="recipe-list-image"
+                :src="item.image"
+                :alt="item.name"
+              />
+            </BaseCard>
+          </div>
+        </li>
+      </ul>
+      <div v-else class="no-items-list">
+        <h2>No Recipes Found</h2>
+      </div>
+    </div>
+    <div v-else>
+      <ul class="recipe-items-list">
+        <RecipeSort @sortType="sortRecipes" />
+        <li v-for="item in recipes" v-bind:key="item.name">
+          <div @click.stop="goToRecipePage(item.id)">
+            <BaseCard
+              class="recipe-item"
+              :class="{ 'item-is-fav': item.isFavorite }"
+            >
+              <BaseDialog
+                @close="this.closeModal()"
+                :show="showRegModal"
+                title="Huzzah!"
+              >
+                <h3 class="dialog-message">{{ message }}</h3>
+                <BaseButton link="true" to="/addToFavPage"
+                  >Go To My Favs!</BaseButton
+                >
+              </BaseDialog>
+              <h2>{{ item.name }}</h2>
+
+              <font-awesome-icon
+                @click.stop="addRecipeToFavorites(item)"
+                icon="fa-solid fa-heart"
+                :class="{ 'is-favorite': item.isFavorite }"
+              />
+
+              <img
+                class="recipe-list-image"
+                :src="item.image"
+                :alt="item.name"
+              />
+            </BaseCard>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -43,10 +87,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import SideBar from "../../components/layout/SideBar.vue";
+import RecipeSort from "../../Pages/recipes/RecipeSort.vue";
 export default {
   name: "RecipeList",
   components: {
     SideBar,
+    RecipeSort,
   },
   data() {
     return {
@@ -62,6 +108,9 @@ export default {
     }),
     showRecipes() {
       return this.selectedRecipes;
+    },
+    arrayToSort() {
+      return this.selectedRecipes.length ? "selectedRecipes" : "recipes";
     },
   },
   methods: {
@@ -101,6 +150,23 @@ export default {
     ...mapActions({
       addToFavorites: "recipes/addToFavorites",
     }),
+
+    sortRecipes(sortType) {
+      console.log(`sort by ${sortType} for ${this.arrayToSort}`);
+      if (
+        this.arrayToSort === "selectedRecipes" &&
+        sortType === "alphabetical"
+      ) {
+        this.selectedRecipes.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (this.arrayToSort === "recipes" && sortType === "alphabetical") {
+        this.recipes.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (sortType === "smallestSize")
+        this.recipes.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+    },
   },
 };
 </script>

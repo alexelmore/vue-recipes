@@ -71,6 +71,54 @@
             />
             <label for="dinner"> Dinner</label>
           </div>
+
+          <div>
+            <input
+              type="radio"
+              id="drinks"
+              name="drinks"
+              value="drinks"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="drinks"> Beverages</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="desserts"
+              name="desserts"
+              value="desserts"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="desserts"> Desserts</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="snacks"
+              name="snacks"
+              value="snacks"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="snacks"> Snacks</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="sides"
+              name="sides"
+              value="sides"
+              v-model="mealType"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="sides"> Sides</label>
+          </div>
         </span>
       </BaseCard>
       <BaseCard>
@@ -120,11 +168,35 @@
             />
             <label for="gluten_free"> Gluten-Free</label>
           </div>
+
+          <div>
+            <input
+              type="checkbox"
+              id="oven"
+              name="oven"
+              value="oven"
+              v-model="searchTags"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="oven"> Oven Baked</label>
+          </div>
         </span>
       </BaseCard>
       <BaseCard>
         <h2>Diffculty</h2>
         <span class="filter-option">
+          <div>
+            <input
+              type="radio"
+              id="under_10_minutes"
+              name="under_10_minutes"
+              value="under_10_minutes"
+              v-model="prepTime"
+              @change="$emit('filteredRecipes', this.combinedTags)"
+            />
+            <label for="under_5_minutes"> Under 10 Minutes</label>
+          </div>
+
           <div>
             <input
               type="radio"

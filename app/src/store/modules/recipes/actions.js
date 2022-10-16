@@ -10,7 +10,7 @@ export default {
             }
         };
 
-        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=130&size=200', options)
+        const response = await fetch('https://tasty.p.rapidapi.com/recipes/list?from=175&size=250', options)
 
         const data = await response.json()
 
@@ -49,8 +49,7 @@ export default {
     addToFavorites(context, recipe) {
         const updatedArray = context.state.recipes.filter(rec => rec.id !== recipe.id)
         recipe.isFavorite = true;
-        console.log(recipe)
-        updatedArray.push(recipe)
+        updatedArray.unshift(recipe)
 
         context.commit('addToFavorites', updatedArray)
 
