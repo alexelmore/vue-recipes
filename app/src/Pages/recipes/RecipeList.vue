@@ -133,7 +133,6 @@ export default {
       if (!isFavorite) {
         this.message = `"${recipe.name}" has been added to your favorites!`;
         this.showRegModal = true;
-        console.log(recipe.isFavorite);
         recipe.isFavorite = isFavorite;
         this.addToFavorites(recipe);
       } else {
@@ -157,7 +156,6 @@ export default {
     }),
 
     sortRecipes(sortType) {
-      console.log(`sort by ${sortType} for ${this.arrayToSort}`);
       if (
         this.arrayToSort === "selectedRecipes" &&
         sortType === "alphabetical"

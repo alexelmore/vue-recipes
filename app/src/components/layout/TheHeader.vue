@@ -4,7 +4,10 @@
       <h1>
         <BaseButton link="true" to="/recipes">Recipe Me!</BaseButton>
       </h1>
-      <h1>
+      <h1 class="favorite-container">
+        <span class="favorite-number" v-if="currentFavCount > 0">{{
+          currentFavCount
+        }}</span>
         <BaseButton link="true" to="/addToFavPage">My Favs!</BaseButton>
       </h1>
     </nav>
@@ -12,8 +15,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "TheHeader",
+  computed: {
+    ...mapGetters({
+      favorites: "recipes/getFavorites",
+    }),
+    currentFavCount() {
+      return this.favorites.length;
+    },
+  },
 };
 </script>
 
@@ -84,5 +96,22 @@ li {
   width: 100%;
   border: 2px solid #dfffd2;
   pointer-events: none;
+}
+
+.favorite-container {
+  position: relative;
+}
+
+.favorite-number {
+  position: absolute;
+  background-color: yellow;
+  color: #032f03;
+  border-radius: 50%;
+  width: 30px;
+  font-size: 1.1rem;
+  height: 33px;
+  border: 2px solid black;
+  left: -7px;
+  top: 3px;
 }
 </style>

@@ -11,7 +11,7 @@
           v-model="sortType"
           @change="$emit('sortType', this.sortType)"
         />
-        <label for="alphabetical"> Alphabetical Sort</label>
+        <label for="alphabetical"> Alphabetical</label>
       </div>
       <div>
         <input
@@ -51,9 +51,6 @@ export default {
   methods: {
     myFunction() {
       document.getElementById("myDropdown").classList.toggle("show");
-    },
-    test() {
-      console.log("fired");
     },
   },
 };
